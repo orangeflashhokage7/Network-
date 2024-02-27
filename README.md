@@ -1,6 +1,30 @@
 Apologies for the misunderstanding. Here are the schemas for the `RideProvide`, `RideInfo`, and `Smiles` tables together:
 
 ```sql
+-- Insert data into RideProvide table
+INSERT INTO RideProvide (Rp_Id, Adhar_Card, Email_Id, Phone, First_Name, Last_Name, Dl_No, Valid_Upto, Status)
+VALUES 
+('RPDO90', '123456789012', 'john@example.com', 1234567890, 'John', 'Doe', 'DL12345678901234', '2024-12-31', 'Registered'),
+('RPST85', '987654321098', 'jane@example.com', 9876543210, 'Jane', 'Smith', 'DL98765432109876', '2025-01-15', 'Un-registered');
+
+-- Insert data into RideInfo table
+INSERT INTO RideInfo (Ride_Id, Rp_Id, Car_Type, Car_Name, Fuel_Type, No_Of_Seats)
+VALUES 
+('RID123', 'RPDO90', 'SUV', 'Toyota RAV4', 'Petrol', 5),
+('RID456', 'RPST85', 'Sedan', 'Honda Civic', 'Diesel', 4);
+
+-- Insert data into Simles table
+INSERT INTO Simles (Simles_Id, Rp_Id, Destination, Occupancy)
+VALUES 
+('SIM001', 'RPDO90', 'Beach', 2),
+('SIM002', 'RPST85', 'Mountain', 3);
+```
+
+
+
+
+
+```sql
 INSERT INTO RideProvide (Adhar_Card, Email_Id, Phone, First_Name, Last_Name, Dl_No, Valid_Upto, Status)
 VALUES 
 ('123456789012', 'john@example.com', 1234567890, 'John', 'Doe', 'DL12345678901234', '2024-12-31', 'Registered'),
