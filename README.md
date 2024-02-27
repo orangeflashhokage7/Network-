@@ -1,3 +1,20 @@
+CREATE TABLE rideProvide (
+    rpld INT,
+    adharcard VARCHAR(255) NOT NULL,
+    emailld VARCHAR(255) NOT NULL,
+    phone INT NOT NULL,
+    firstName VARCHAR(255) NOT NULL,
+    lastName VARCHAR(255) NOT NULL,
+    dlNo VARCHAR(255) NOT NULL,
+    validUpto DATE NOT NULL,
+    status VARCHAR(255) NOT NULL
+);
+
+
+
+
+
+
 To incorporate the DTO classes into the `RideProvider` entity class, you would create fields for each DTO class and annotate them accordingly. Here's how you can do it:
 
 ```java
