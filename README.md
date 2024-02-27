@@ -1,3 +1,42 @@
+
+```sql
+-- Schema for RideProvide table
+CREATE TABLE RideProvide (
+    Rp_Id VARCHAR(6) PRIMARY KEY,
+    Adhar_Card VARCHAR(12) NOT NULL,
+    Email_Id VARCHAR(255) NOT NULL,
+    Phone INT NOT NULL,
+    First_Name VARCHAR(255) NOT NULL,
+    Last_Name VARCHAR(255) NOT NULL,
+    Dl_No VARCHAR(16) NOT NULL,
+    Valid_Upto DATE NOT NULL,
+    Status VARCHAR(255) NOT NULL
+);
+
+-- Schema for RideInfo table
+CREATE TABLE RideInfo (
+    Ride_Id VARCHAR(255) PRIMARY KEY,
+    Rp_Id VARCHAR(6),
+    Car_Type VARCHAR(255),
+    Car_Name VARCHAR(255),
+    Fuel_Type VARCHAR(255),
+    No_Of_Seats INT NOT NULL,
+    FOREIGN KEY (Rp_Id) REFERENCES RideProvide(Rp_Id)
+);
+
+-- Schema for Simles table
+CREATE TABLE Simles (
+    Simles_Id VARCHAR(255) PRIMARY KEY,
+    Rp_Id VARCHAR(6),
+    Destination VARCHAR(255),
+    Occupancy INT,
+    FOREIGN KEY (Rp_Id) REFERENCES RideProvide(Rp_Id)
+);
+```
+
+
+
+
 Apologies for the misunderstanding. Here are the schemas for the `RideProvide`, `RideInfo`, and `Smiles` tables together:
 
 ```sql
