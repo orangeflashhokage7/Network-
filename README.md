@@ -1,3 +1,23 @@
+Sure, here's the `schema.sql` without the "IF NOT EXISTS" clause:
+
+```sql
+CREATE TABLE rideProvide (
+    rpld INT,
+    adharcard VARCHAR(255) NOT NULL,
+    emailld VARCHAR(255) NOT NULL,
+    phone INT NOT NULL,
+    firstName VARCHAR(255) NOT NULL,
+    lastName VARCHAR(255) NOT NULL,
+    dlNo VARCHAR(255) NOT NULL,
+    validUpto DATE NOT NULL,
+    status VARCHAR(255) NOT NULL
+);
+```
+
+This script creates the `rideProvide` table with the specified columns and constraints in an H2 in-memory database, without checking for existence. Let me know if you need further assistance!
+
+
+
 CREATE TABLE rideProvide (
     rpld INT,
     adharcard VARCHAR(255) NOT NULL,
