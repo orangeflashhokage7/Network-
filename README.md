@@ -1,3 +1,44 @@
+Apologies for the misunderstanding. Here are the schemas for the `RideProvide`, `RideInfo`, and `Smiles` tables together:
+
+```sql
+CREATE TABLE RideProvide (
+    Rp_Id INT PRIMARY KEY AUTO_INCREMENT,
+    Adharcard VARCHAR(12) NOT NULL,
+    Emailld VARCHAR(255) NOT NULL,
+    Phone INT NOT NULL,
+    FirstName VARCHAR(255) NOT NULL,
+    LastName VARCHAR(255) NOT NULL,
+    Dl_No VARCHAR(16) NOT NULL,
+    Valid_Upto DATE NOT NULL,
+    Status VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE RideInfo (
+    Ride_Id VARCHAR(255),
+    Rp_Id INT,
+    Car_Type VARCHAR(255),
+    Source VARCHAR(255),
+    Car_Name VARCHAR(255),
+    Destination VARCHAR(255),
+    Fuel_Type VARCHAR(255),
+    Occupancy INT NOT NULL,
+    No_Of_Seats INT NOT NULL
+);
+
+CREATE TABLE Simles (
+    Simles_Id VARCHAR(255),
+    Rp_Id INT,
+    Source VARCHAR(255),
+    Destination VARCHAR(255),
+    Occupancy INT
+);
+```
+
+This script defines the schemas for the three tables in the specified order: `RideProvide`, `RideInfo`, and `Simles`. Let me know if you need any further assistance!
+
+
+
+
 Sure, here's the `schema.sql` without the "IF NOT EXISTS" clause:
 
 ```sql
