@@ -1,3 +1,111 @@
+```java
+package com.cognizant.test;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@DataJpaTest
+public class RideProvideTest {
+
+    @Autowired
+    private RideProvideRepository rideProvideRepository;
+
+    @Autowired
+    private TestEntityManager entityManager;
+
+    @Test
+    public void testFindAllPositive() {
+        RideProvide rideProvide = new RideProvide();
+        rideProvide.setRpId("RP001");
+        rideProvide.setFirstName("John");
+        rideProvide.setLastName("Doe");
+        rideProvide.setEmailId("john@example.com");
+        rideProvide.setDlNo("DL12345678901234");
+        entityManager.persist(rideProvide);
+
+        Iterable<RideProvide> it = rideProvideRepository.findAll();
+        assertTrue(it.iterator().hasNext());
+    }
+
+    @Test
+    public void testFindAllNegative() {
+        Iterable<RideProvide> it = rideProvideRepository.findAll();
+        assertTrue(it.iterator().hasNext());
+    }
+
+    @Test
+    public void testFindByIdPositive() {
+        RideProvide rideProvide = new RideProvide();
+        rideProvide.setRpId("RP001");
+        rideProvide.setFirstName("John");
+        rideProvide.setLastName("Doe");
+        rideProvide.setEmailId("john@example.com");
+        rideProvide.setDlNo("DL12345678901234");
+        entityManager.persist(rideProvide);
+
+        Optional<RideProvide> foundRideProvide = rideProvideRepository.findById("RP001");
+        assertTrue(foundRideProvide.isPresent());
+    }
+
+    @Test
+    public void testFindByIdNegative() {
+        Optional<RideProvide> notFoundRideProvide = rideProvideRepository.findById("InvalidRpId");
+        assertFalse(notFoundRideProvide.isPresent());
+    }
+
+    @Test
+    public void testSavePositive() {
+        RideProvide rideProvide = new RideProvide();
+        rideProvide.setRpId("RP001");
+        rideProvide.setFirstName("John");
+        rideProvide.setLastName("Doe");
+        rideProvide.setEmailId("john@example.com");
+        rideProvide.setDlNo("DL12345678901234");
+        rideProvideRepository.save(rideProvide);
+
+        Optional<RideProvide> savedRideProvide = rideProvideRepository.findById("RP001");
+        assertTrue(savedRideProvide.isPresent());
+    }
+
+    @Test
+    public void testDeletePositive() {
+        RideProvide rideProvide = new RideProvide();
+        rideProvide.setRpId("RP001");
+        rideProvide.setFirstName("John");
+        rideProvide.setLastName("Doe");
+        rideProvide.setEmailId("john@example.com");
+        rideProvide.setDlNo("DL12345678901234");
+        entityManager.persist(rideProvide);
+
+        rideProvideRepository.delete(rideProvide);
+
+        Optional<RideProvide> deletedRideProvide = rideProvideRepository.findById("RP001");
+        assertFalse(deletedRideProvide.isPresent());
+    }
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Certainly! Below is an example of a test class for the `RideProvide` entity using JUnit and Mockito. This test class covers positive, negative, and exception scenarios for various methods in the `RideProvideService`.
 
