@@ -1,4 +1,101 @@
 
+Certainly! Below is an example of a test class for the `RideProvide` entity using JUnit and Mockito. This test class covers positive, negative, and exception scenarios for various methods in the `RideProvideService`.
+
+```java
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.time.LocalDate;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+@ExtendWith(MockitoExtension.class)
+@SpringBootTest
+public class RideProvideTest {
+
+    @Mock
+    private RideProvideRepository rideProvideRepository;
+
+    @InjectMocks
+    private RideProvideService rideProvideService;
+
+    private RideProvide rideProvide;
+
+    @BeforeEach
+    public void setUp() {
+        rideProvide = new RideProvide();
+        rideProvide.setRpId("RP001");
+        rideProvide.setAdharCard("123456789012");
+        rideProvide.setEmailId("john@example.com");
+        rideProvide.setPhone(1234567890);
+        rideProvide.setFirstName("John");
+        rideProvide.setLastName("Doe");
+        rideProvide.setDlNo("DL12345678901234");
+        rideProvide.setValidUpto(LocalDate.of(2024, 12, 31));
+        rideProvide.setStatus("Registered");
+    }
+
+    @Test
+    public void testSaveRideProvide_Positive() {
+        when(rideProvideRepository.save(rideProvide)).thenReturn(rideProvide);
+        RideProvide savedRideProvide = rideProvideService.saveRideProvide(rideProvide);
+        assertEquals(rideProvide, savedRideProvide);
+    }
+
+    @Test
+    public void testSaveRideProvide_Negative() {
+        RideProvide invalidRideProvide = new RideProvide();
+        // Set invalid data or null fields in invalidRideProvide
+        assertThrows(Exception.class, () -> rideProvideService.saveRideProvide(invalidRideProvide));
+    }
+
+    @Test
+    public void testSaveRideProvide_Exception() {
+        when(rideProvideRepository.save(rideProvide)).thenThrow(new RuntimeException("Failed to save ride provide"));
+        assertThrows(RuntimeException.class, () -> rideProvideService.saveRideProvide(rideProvide));
+    }
+
+    @Test
+    public void testGetRideProvideById_Positive() {
+        when(rideProvideRepository.findById("RP001")).thenReturn(java.util.Optional.ofNullable(rideProvide));
+        RideProvide foundRideProvide = rideProvideService.getRideProvideById("RP001");
+        assertEquals(rideProvide, foundRideProvide);
+    }
+
+    @Test
+    public void testGetRideProvideById_Negative() {
+        when(rideProvideRepository.findById("RP002")).thenReturn(java.util.Optional.empty());
+        RideProvide notFoundRideProvide = rideProvideService.getRideProvideById("RP002");
+        assertNull(notFoundRideProvide);
+    }
+
+    // Add more test methods as needed
+}
+```
+
+In this test class:
+
+- `setUp`: This method initializes a `RideProvide` object with sample data before each test method.
+- `testSaveRideProvide_Positive`: Tests the positive case of saving a `RideProvide` object and asserts that the saved object is equal to the original object.
+- `testSaveRideProvide_Negative`: Tests the negative case of saving an invalid `RideProvide` object and expects an exception to be thrown.
+- `testSaveRideProvide_Exception`: Tests the case where an exception occurs while saving a `RideProvide` object and expects a `RuntimeException` to be thrown.
+- `testGetRideProvideById_Positive`: Tests the positive case of retrieving a `RideProvide` object by its ID and asserts that the retrieved object is equal to the original object.
+- `testGetRideProvideById_Negative`: Tests the negative case of retrieving a `RideProvide` object by an invalid ID and asserts that no object is found.
+
+You can add more test methods to cover additional scenarios based on your application requirements. Let me know if you need further assistance!
+
+
+
+
+
+
 ```sql
 -- Schema for RideProvide table
 CREATE TABLE RideProvide (
