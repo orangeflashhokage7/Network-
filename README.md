@@ -1,4 +1,59 @@
 
+Got it. Here's the updated `RideInfo` class with the `@ManyToOne` relationship with `RideProvide`:
+
+```java
+package com.cognizant.entities;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+@Entity
+@Table(name = "RideInfo")
+public class RideInfo {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "rideId")
+    private Long rideId;
+
+    @Column(name = "RpId")
+    @NotNull
+    private String rpId;
+
+    @Column(name = "carType")
+    @NotEmpty
+    private String carType;
+
+    @Column(name = "carName")
+    @NotEmpty
+    private String carName;
+
+    @Column(name = "fuelType")
+    @NotEmpty
+    private String fuelType;
+
+    @Column(name = "noOfSeats")
+    @NotNull
+    private int noOfSeats;
+
+    @ManyToOne
+    @JoinColumn(name = "RpId", referencedColumnName = "RpId")
+    private RideProvide rideProvide;
+
+    // Getters and setters
+}
+```
+
+Now, the `RideInfo` class has the `@ManyToOne` relationship with `RideProvide`, linking them through the `RpId` foreign key column.
+
+
+
+
+
+
+
+
 In this scenario, the one-to-many relationship should be defined in the `RideProvide` class for the relationship between `RideProvide` and `RideInfo`, and in the `RideInfo` class for the relationship between `RideInfo` and `Simles`. 
 
 Here's how you would define the one-to-many relationships:
