@@ -1,3 +1,116 @@
+Sure, here's the updated test class for the RideInfo entity:
+
+```java
+package com.cognizant.test;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@DataJpaTest
+public class TestRideInfo {
+
+    @Autowired
+    private RideInfoRepository rideInfoRepository;
+
+    @Autowired
+    private TestEntityManager entityManager;
+
+    @Test
+    public void testFindAllPositive() {
+        RideInfo rideInfo = new RideInfo();
+        rideInfo.setVechileNo("ABC123");
+        rideInfo.setRpId("RP001");
+        rideInfo.setCarType("SUV");
+        rideInfo.setCarName("Toyota RAV4");
+        rideInfo.setFuelType("Petrol");
+        rideInfo.setNoOfSeats(5);
+        entityManager.persist(rideInfo);
+
+        Iterable<RideInfo> it = rideInfoRepository.findAll();
+        assertTrue(it.iterator().hasNext());
+    }
+
+    @Test
+    public void testFindAllNegative() {
+        Iterable<RideInfo> it = rideInfoRepository.findAll();
+        assertFalse(it.iterator().hasNext());
+    }
+
+    @Test
+    public void testFindByVechileNoPositive() {
+        RideInfo rideInfo = new RideInfo();
+        rideInfo.setVechileNo("ABC123");
+        rideInfo.setRpId("RP001");
+        rideInfo.setCarType("SUV");
+        rideInfo.setCarName("Toyota RAV4");
+        rideInfo.setFuelType("Petrol");
+        rideInfo.setNoOfSeats(5);
+        entityManager.persist(rideInfo);
+
+        Optional<RideInfo> foundRideInfo = rideInfoRepository.findByVechileNo("ABC123");
+        assertTrue(foundRideInfo.isPresent());
+    }
+
+    @Test
+    public void testFindByVechileNoNegative() {
+        Optional<RideInfo> notFoundRideInfo = rideInfoRepository.findByVechileNo("InvalidVechileNo");
+        assertFalse(notFoundRideInfo.isPresent());
+    }
+
+    @Test
+    public void testSavePositive() {
+        RideInfo rideInfo = new RideInfo();
+        rideInfo.setVechileNo("ABC123");
+        rideInfo.setRpId("RP001");
+        rideInfo.setCarType("SUV");
+        rideInfo.setCarName("Toyota RAV4");
+        rideInfo.setFuelType("Petrol");
+        rideInfo.setNoOfSeats(5);
+        rideInfoRepository.save(rideInfo);
+
+        Optional<RideInfo> savedRideInfo = rideInfoRepository.findByVechileNo("ABC123");
+        assertTrue(savedRideInfo.isPresent());
+    }
+
+    @Test
+    public void testDeletePositive() {
+        RideInfo rideInfo = new RideInfo();
+        rideInfo.setVechileNo("ABC123");
+        rideInfo.setRpId("RP001");
+        rideInfo.setCarType("SUV");
+        rideInfo.setCarName("Toyota RAV4");
+        rideInfo.setFuelType("Petrol");
+        rideInfo.setNoOfSeats(5);
+        entityManager.persist(rideInfo);
+
+        rideInfoRepository.delete(rideInfo);
+
+        Optional<RideInfo> deletedRideInfo = rideInfoRepository.findByVechileNo("ABC123");
+        assertFalse(deletedRideInfo.isPresent());
+    }
+}
+```
+
+This test class covers positive and negative scenarios for finding, saving, and deleting RideInfo entities. Let me know if you need further assistance!
+
+
+
+
+
+
+
+
+
+
+
+
 Thank you for providing the additional entity details and correcting the data type for DL no. Here's the updated test class with the new entity attributes:
 
 ```java
