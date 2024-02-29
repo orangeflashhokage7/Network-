@@ -1,4 +1,44 @@
 
+Here's the `Smiles` entity class with the `@ManyToOne` relationship with `RideInfo`:
+
+```java
+package com.cognizant.entities;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
+@Entity
+@Table(name = "Smiles")
+public class Smiles {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "smileId")
+    private Long smileId;
+
+    @Column(name = "smileId")
+    @NotNull
+    private int smileId;
+
+    @Column(name = "RpId")
+    @NotNull
+    private String rpId;
+
+    @ManyToOne
+    @JoinColumn(name = "RpId", referencedColumnName = "RpId")
+    private RideInfo rideInfo;
+
+    // Getters and setters
+}
+```
+
+Now, the `Smiles` class has the `@ManyToOne` relationship with `RideInfo`, linking them through the `RpId` foreign key column.
+
+
+
+
+
+
 Got it. Here's the updated `RideInfo` class with the `@ManyToOne` relationship with `RideProvide`:
 
 ```java
