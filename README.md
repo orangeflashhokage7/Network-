@@ -1,3 +1,105 @@
+
+
+package com.cognizant.test;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@DataJpaTest
+public class TestSimlesRepository {
+
+    @Autowired
+    private SimlesRepository simlesRepository;
+
+    @Autowired
+    private TestEntityManager entityManager;
+
+    @Test
+    public void testFindAllPositive() {
+        Simles simles = new Simles();
+        simles.setSimleId(1);
+        simles.setRpId("RP001");
+        simles.setSource("Source");
+        simles.setDestination("Destination");
+        simles.setOccupancy(3);
+        entityManager.persist(simles);
+
+        Iterable<Simles> it = simlesRepository.findAll();
+        assertTrue(it.iterator().hasNext());
+    }
+
+    @Test
+    public void testFindAllNegative() {
+        Iterable<Simles> it = simlesRepository.findAll();
+        assertFalse(it.iterator().hasNext());
+    }
+
+    @Test
+    public void testFindByRpIdPositive() {
+        Simles simles = new Simles();
+        simles.setSimleId(1);
+        simles.setRpId("RP001");
+        simles.setSource("Source");
+        simles.setDestination("Destination");
+        simles.setOccupancy(3);
+        entityManager.persist(simles);
+
+        Optional<Simles> foundSimles = simlesRepository.findByRpId("RP001");
+        assertTrue(foundSimles.isPresent());
+    }
+
+    @Test
+    public void testFindByRpIdNegative() {
+        Optional<Simles> notFoundSimles = simlesRepository.findByRpId("InvalidRpId");
+        assertFalse(notFoundSimles.isPresent());
+    }
+
+    @Test
+    public void testSavePositive() {
+        Simles simles = new Simles();
+        simles.setSimleId(1);
+        simles.setRpId("RP001");
+        simles.setSource("Source");
+        simles.setDestination("Destination");
+        simles.setOccupancy(3);
+        simlesRepository.save(simles);
+
+        Optional<Simles> savedSimles = simlesRepository.findById(1);
+        assertTrue(savedSimles.isPresent());
+    }
+
+    @Test
+    public void testDeletePositive() {
+        Simles simles = new Simles();
+        simles.setSimleId(1);
+        simles.setRpId("RP001");
+        simles.setSource("Source");
+        simles.setDestination("Destination");
+        simles.setOccupancy(3);
+        entityManager.persist(simles);
+
+        simlesRepository.delete(simles);
+
+        Optional<Simles> deletedSimles = simlesRepository.findById(1);
+        assertFalse(deletedSimles.isPresent());
+    }
+
+    // Add more test methods as needed
+}
+
+
+
+
+
+
+
+
 Here's the updated test class with additional test methods:
 
 ```java
