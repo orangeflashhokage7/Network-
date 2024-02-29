@@ -1,3 +1,119 @@
+Here's the updated test class with additional test methods:
+
+```java
+package com.cognizant.test;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@DataJpaTest
+public class SmileTest {
+
+    @Autowired
+    private SmileRepository smileRepository;
+
+    @Autowired
+    private TestEntityManager entityManager;
+
+    @Test
+    public void testFindAllPositive() {
+        Smile smile = new Smile();
+        smile.setSmileId(1);
+        smile.setRpId("RP001");
+        smile.setSource("Source");
+        smile.setDestination("Destination");
+        smile.setOccupancy(3);
+        entityManager.persist(smile);
+
+        Iterable<Smile> it = smileRepository.findAll();
+        assertTrue(it.iterator().hasNext());
+    }
+
+    @Test
+    public void testFindAllNegative() {
+        Iterable<Smile> it = smileRepository.findAll();
+        assertFalse(it.iterator().hasNext());
+    }
+
+    @Test
+    public void testFindByRpIdPositive() {
+        Smile smile = new Smile();
+        smile.setSmileId(1);
+        smile.setRpId("RP001");
+        smile.setSource("Source");
+        smile.setDestination("Destination");
+        smile.setOccupancy(3);
+        entityManager.persist(smile);
+
+        Optional<Smile> foundSmile = smileRepository.findByRpId("RP001");
+        assertTrue(foundSmile.isPresent());
+    }
+
+    @Test
+    public void testFindByRpIdNegative() {
+        Optional<Smile> notFoundSmile = smileRepository.findByRpId("InvalidRpId");
+        assertFalse(notFoundSmile.isPresent());
+    }
+
+    @Test
+    public void testSavePositive() {
+        Smile smile = new Smile();
+        smile.setSmileId(1);
+        smile.setRpId("RP001");
+        smile.setSource("Source");
+        smile.setDestination("Destination");
+        smile.setOccupancy(3);
+        smileRepository.save(smile);
+
+        Optional<Smile> savedSmile = smileRepository.findById(1);
+        assertTrue(savedSmile.isPresent());
+    }
+
+    @Test
+    public void testDeletePositive() {
+        Smile smile = new Smile();
+        smile.setSmileId(1);
+        smile.setRpId("RP001");
+        smile.setSource("Source");
+        smile.setDestination("Destination");
+        smile.setOccupancy(3);
+        entityManager.persist(smile);
+
+        smileRepository.delete(smile);
+
+        Optional<Smile> deletedSmile = smileRepository.findById(1);
+        assertFalse(deletedSmile.isPresent());
+    }
+
+    // Add more test methods as needed
+}
+```
+
+This test class now includes all the requested test methods. Let me know if you need further assistance!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Sure, here's the updated test class for the RideInfo entity:
 
 ```java
