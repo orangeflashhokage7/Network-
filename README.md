@@ -1,3 +1,67 @@
+
+In this scenario, the one-to-many relationship should be defined in the `RideProvide` class for the relationship between `RideProvide` and `RideInfo`, and in the `RideInfo` class for the relationship between `RideInfo` and `Simles`. 
+
+Here's how you would define the one-to-many relationships:
+
+In the `RideProvide` class:
+
+```java
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@Table(name = "RideProvide")
+public class RideProvide {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "RpId")
+    private Long rpId;
+
+    // Other attributes and annotations
+
+    @OneToMany(mappedBy = "rideProvide", cascade = CascadeType.ALL)
+    private List<RideInfo> rideInfos;
+
+    // Getters and setters
+}
+```
+
+In the `RideInfo` class:
+
+```java
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@Table(name = "RideInfo")
+public class RideInfo {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "rideId")
+    private Long rideId;
+
+    // Other attributes and annotations
+
+    @ManyToOne
+    @JoinColumn(name = "RpId", referencedColumnName = "RpId")
+    private RideProvide rideProvide;
+
+    @OneToMany(mappedBy = "rideInfo", cascade = CascadeType.ALL)
+    private List<Simles> simlesList;
+
+    // Getters and setters
+}
+```
+
+With these configurations, you establish the one-to-many relationship between `RideProvide` and `RideInfo`, and between `RideInfo` and `Simles`.
+
+
+
+
+
+
 Got it. Let's adjust the test class accordingly:
 
 ```java
